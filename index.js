@@ -138,7 +138,7 @@ pm2.launchBus((err, bus) => {
  * Report metrics to DataDog.
  */
 
-async function start() {
+function start() {
   pm2.list((err, processes) => {
     dogstatsd.gauge('pm2.processes.installed', processes.length);
 
@@ -154,8 +154,7 @@ async function start() {
     }
   });
 
-  await sleep(interval);
-  await start();
+  sleep(interval).then(start);
 }
 
 logger.info({ globalTags, host, interval, port }, 'Starting pm2-datadog');
