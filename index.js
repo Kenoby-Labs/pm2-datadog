@@ -145,7 +145,7 @@ async function start() {
     for (const process of processes) {
       const tags = [
         `application:${process.name}`,
-        `instance:${process.pm2_env.NODE_APP_INSTANCE}`
+        `instance:${process.pm2_env.pm_id}`
       ];
 
       dogstatsd.check('pm2.processes.status', statusMapper[process.pm2_env.status], {}, [`application:${process.name}`]);
